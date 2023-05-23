@@ -8,6 +8,7 @@ características.
 ## Cortex M
 1. Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y
 M4.
+
 Las diferencias entre las familias de procesadores Cortex M0, M3 y M4 son las siguientes:
 Cortex M0: Diseñado para aplicaciones de bajo consumo de energía y costos reducidos, es adecuado para sistemas embebidos simples y de baja potencia.
 Cortex M3: Ofrece un rendimiento equilibrado y una amplia gama de aplicaciones. Admite operaciones de punto flotante en hardware.
@@ -15,13 +16,16 @@ Cortex M4: Tiene características avanzadas y un rendimiento aún mayor que el C
 
 2. ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código?
 Explique
+
 El set de instrucciones Thumb permite una mayor densidad de código porque las instrucciones se codifican en un formato de 16 bits en lugar de 32 bits, lo que ocupa menos espacio en memoria y permite almacenar más instrucciones en el mismo espacio.
 
 3. ¿Qué entiende por arquitectura load-store? ¿Qué tipo de instrucciones no posee este
 tipo de arquitectura?
+
 La arquitectura load-store utiliza instrucciones de carga y almacenamiento para acceder a la memoria principal. No tiene instrucciones que realicen operaciones aritméticas o lógicas directamente en la memoria.
 
 4. ¿Cómo es el mapa de memoria de la familia?
+
 El mapa de memoria de la familia de procesadores define la organización y distribución de la memoria en el sistema, incluyendo la ubicación y tamaño de las diferentes regiones de memoria, como la memoria de programa, la memoria de datos y la memoria de pila. La configuración exacta del mapa de memoria puede variar según la familia de procesadores y la implementación específica.
 
 5. ¿Qué ventajas presenta el uso de los “shadowed pointers” del PSP y el MSP?
