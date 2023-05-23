@@ -9,7 +9,6 @@ características.
 1. Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y
 M4.
 Las diferencias entre las familias de procesadores Cortex M0, M3 y M4 son las siguientes:
-
 Cortex M0: Diseñado para aplicaciones de bajo consumo de energía y costos reducidos, es adecuado para sistemas embebidos simples y de baja potencia.
 Cortex M3: Ofrece un rendimiento equilibrado y una amplia gama de aplicaciones. Admite operaciones de punto flotante en hardware.
 Cortex M4: Tiene características avanzadas y un rendimiento aún mayor que el Cortex M3. Además de las funciones del M3, agrega instrucciones DSP y aceleración en hardware para aplicaciones con requerimientos de procesamiento intensivo.
