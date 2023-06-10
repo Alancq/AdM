@@ -39,9 +39,11 @@ El mapa de memoria de la familia de procesadores define la organización y distr
 
 Los "shadowed pointers" en los registros PSP y MSP permiten tener dos conjuntos de pilas en el microcontrolador. El MSP se utiliza en modo privilegiado y el PSP en modo no privilegiado. Esto facilita la gestión eficiente de la memoria y la conmutación rápida entre las pilas según el contexto de ejecución. Además, mejora la respuesta a interrupciones al tener una pila separada y dedicada para ellas. Los "shadowed pointers" se refieren a que los registros PSP y MSP se leen a través del registro SP, lo que permite una conmutación más sencilla entre las pilas y una mayor flexibilidad en la gestión de tareas.
 
-7. Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y
+6. Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y
 como se conmuta de uno al otro. Describa un ejemplo en el que se pasa del modo
 privilegiado a no priviligiado y nuevamente a privilegiado.
+
+El Cortex-M tiene dos modos de privilegio: privilegiado y no privilegiado. En el modo privilegiado, se tiene acceso completo a los recursos del sistema, mientras que en el modo no privilegiado, el acceso está restringido. La conmutación de un modo a otro se realiza mediante software y requiere modificar el registro de control correspondiente.
 
 7. ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
 8. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un
