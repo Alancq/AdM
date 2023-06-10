@@ -5,6 +5,13 @@ Elmer Alan Cornejo Quito
 1. Describa brevemente los diferentes perfiles de familias de
 microprocesadores/microcontroladores de ARM. Explique alguna de sus diferencias
 características.
+
+* Cortex-A: Diseñado para aplicaciones de alto rendimiento y consumo de energía, como dispositivos móviles y sistemas embebidos. Ofrece un rendimiento potente y es adecuado para tareas intensivas en cómputo y sistemas operativos de proposito general.
+
+* Cortex-R: Optimizado para aplicaciones en tiempo real y baja latencia, como controladores de automoción. Proporciona características específicas para garantizar fiabilidad y capacidad de respuesta.
+
+* Cortex-M: Enfocado en microcontroladores de bajo consumo de energía y bajo costo, altamente eficiente en términos de consumo de energía, por ende son pensados para uso de consumo o de uso cotidiano.
+
 ## Cortex M
 1. Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y
 M4.
@@ -29,6 +36,9 @@ La arquitectura load-store utiliza instrucciones de carga y almacenamiento para 
 El mapa de memoria de la familia de procesadores define la organización y distribución de la memoria en el sistema, incluyendo la ubicación y tamaño de las diferentes regiones de memoria, como la memoria de programa, la memoria de datos y la memoria de pila. La configuración exacta del mapa de memoria puede variar según la familia de procesadores y la implementación específica.
 
 5. ¿Qué ventajas presenta el uso de los “shadowed pointers” del PSP y el MSP?
+
+Los "shadowed pointers" en los registros PSP y MSP permiten tener dos conjuntos de pilas en el microcontrolador. El MSP se utiliza en modo privilegiado y el PSP en modo no privilegiado. Esto facilita la gestión eficiente de la memoria y la conmutación rápida entre las pilas según el contexto de ejecución. Además, mejora la respuesta a interrupciones al tener una pila separada y dedicada para ellas. Los "shadowed pointers" se refieren a que los registros PSP y MSP se leen a través del registro SP, lo que permite una conmutación más sencilla entre las pilas y una mayor flexibilidad en la gestión de tareas.
+
 7. Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y
 como se conmuta de uno al otro. Describa un ejemplo en el que se pasa del modo
 privilegiado a no priviligiado y nuevamente a privilegiado.
