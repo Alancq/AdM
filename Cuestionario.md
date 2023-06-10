@@ -46,13 +46,33 @@ privilegiado a no priviligiado y nuevamente a privilegiado.
 El Cortex-M tiene dos modos de privilegio: privilegiado y no privilegiado. En el modo privilegiado, se tiene acceso completo a los recursos del sistema, mientras que en el modo no privilegiado, el acceso está restringido. La conmutación de un modo a otro se realiza mediante software y requiere modificar el registro de control correspondiente.
 
 7. ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
-8. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un
+
+El modelo de registros ortogonal se refiere a registros independientes en los cuales modificar el valor de uno no afecta al otro, son totalmente independientes y modificando uno de ellos no altera el comportamiento del otro.
+
+9. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un
 ejemplo
 9. Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).
+
+Las excepciones más prioritarias en un sistema embebido son:
+
+Reset: Es la excepción más alta en prioridad y se produce al encender o reiniciar el procesador. Inicializa el sistema y establece el punto de entrada para la ejecución del programa.
+
+NMI (Non-Maskable Interrupt): Es una excepción de alta prioridad que no puede ser desactivada por software. Se genera por interrupciones críticas que requieren una respuesta inmediata.
+
+HardFault: Es una excepción que agrupa diversas excepciones del sistema, como MemManage, BusFault y UsageFault, cuando no se ha definido un manejador específico para cada una. Se produce por eventos inesperados y puede ser difícil de recuperar.
+
+
 10. Describa las funciones principales de la pila. ¿Cómo resuelve la arquitectura el llamado
 a funciones y su retorno?
+
+La función principal de la pila es guardar y administrar el contexto de ejecución de las funciones. Esto implica guardar las variables, registros y direcciones de retorno de las funciones en uso. La pila permite el llamado y retorno de funciones al liberar y restaurar registros y variables adecuadamente. Al hacer un llamado a una función anidada, los registros se guardan en la pila mediante PUSH, y al retornar de la función, se recuperan mediante POP. La pila es esencial para mantener un flujo de ejecución ordenado y evitar desbordamientos que podrían afectar el programa.
+
 11. Describa la secuencia de reset del microprocesador.
-12. ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de
+
+La secuencia de reset del microprocesador comienza accediendo a la dirección de memoria inicial (0x00000000) donde se encuentra el valor inicial del MSP (puntero de pila principal). A continuación, se lee la primera posición del vector de interrupciones para encontrar la dirección de la rutina de reset y se salta a esa posición. Una vez ejecutada la rutina de reset, el programador es libre de realizar las acciones deseadas, generalmente ejecutando la función "main" del programa. Esta secuencia garantiza que el microprocesador inicie en un estado predefinido y listo para la ejecución del programa.
+
+
+13. ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de
 los periféricos?
 13. ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo
 14. ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?
