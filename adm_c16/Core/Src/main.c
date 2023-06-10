@@ -45,7 +45,7 @@ ETH_TxPacketConfig TxConfig;
 ETH_DMADescTypeDef  DMARxDscrTab[ETH_RX_DESC_CNT]; /* Ethernet Rx DMA Descriptors */
 ETH_DMADescTypeDef  DMATxDscrTab[ETH_TX_DESC_CNT]; /* Ethernet Tx DMA Descriptors */
 
- ETH_HandleTypeDef heth;
+ETH_HandleTypeDef heth;
 
 UART_HandleTypeDef huart3;
 
@@ -66,6 +66,26 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
+/*EJERCICIO I
+ *Realizar una función que inicialice un vector con ceros. La función debe tener el siguiente
+prototipo:
+
+void zeros (uint32_t * vector, uint32_t longitud);*/
+void zeros(uint32_t *vector, uint32_t longitud) {
+    for (uint32_t i = 0; i < longitud; i++) {
+        vector[i] = 0;
+    }
+}
+
+/*EJERCICIO II
+ * 2) Realizar una función que realice el producto de un vector y un escalar (por ejemplo, podría servir
+para cambiar el nivel de amplitud de una señal). void productoEscalar32 (uint32_t * vectorIn, uint32_t * vectorOut uint32_t longitud, uint32_t escalar);*/
+
+void productoEscalar32(uint32_t *vectorIn, uint32_t *vectorOut, uint32_t longitud, uint32_t escalar) {
+    for (uint32_t i = 0; i < longitud; i++) {
+        vectorOut[i] = vectorIn[i] * escalar;
+    }
+}
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
 {
