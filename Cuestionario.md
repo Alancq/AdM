@@ -72,17 +72,28 @@ La función principal de la pila es guardar y administrar el contexto de ejecuci
 La secuencia de reset del microprocesador comienza accediendo a la dirección de memoria inicial (0x00000000) donde se encuentra el valor inicial del MSP (puntero de pila principal). A continuación, se lee la primera posición del vector de interrupciones para encontrar la dirección de la rutina de reset y se salta a esa posición. Una vez ejecutada la rutina de reset, el programador es libre de realizar las acciones deseadas, generalmente ejecutando la función "main" del programa. Esta secuencia garantiza que el microprocesador inicie en un estado predefinido y listo para la ejecución del programa.
 
 
-13. ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de
+12. ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de
 los periféricos?
+
+Los core peripherals son los periféricos esenciales que se encuentran integrados en el procesador y que son comunes en todos los procesadores de una arquitectura, como los procesadores Cortex de ARM. Estos periféricos incluyen el Nested Vectored Interrupt Controller (NVIC), el System Control Block (SCB), el System Timer y, en algunos casos, la Memory Protection Unit (MPU). Estos periféricos son proporcionados por la arquitectura y son independientes del fabricante.
+
 13. ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo
 14. ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?
+
+El CMSIS (Cortex Microcontroller Software Interface Standard) es un conjunto de bibliotecas y herramientas proporcionadas por ARM que permiten acceder y utilizar las funcionalidades estándar de los procesadores Cortex. Su principal ventajaesta en la facilidad de portabilidad del software entre diferentes microcontroladores Cortex, lo que permite reutilizar el código desarrollado en diferentes plataformas.
+
 15. Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el
 microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo
+
+
 16. ¿Cómo cambia la operación de stacking al utilizar la unidad de punto flotante?
 17. Explique las características avanzadas de atención a interrupciones: tail chaining y late
 arrival.
 18. ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la
 portabilidad de los sistemas operativos embebidos?
+
+El SysTick es un periférico utilizado como base de tiempo para los sistemas operativos embebidos. Su implementación es mas facil entre para procesadores Cortex proporcionando ventajas significativas en términos de portabilidad RTOS. 
+
 19. ¿Qué funciones cumple la unidad de protección de memoria (MPU)?
 20. ¿Cuántas regiones pueden configurarse como máximo? ¿Qué ocurre en caso de haber
 solapamientos de las regiones? ¿Qué ocurre con las zonas de memoria no cubiertas por las
