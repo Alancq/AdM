@@ -109,6 +109,25 @@ void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitu
     }
 }
 
+/*EJERCICIO 5
+ * Realice una función que implemente un filtro de ventana móvil de 10 valores sobre un vector de
+muestras.
+
+void filtroVentana10(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitudVectorIn);*/
+
+void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitudVectorIn) {
+    for (uint32_t i = 0; i < longitudVectorIn; i++) {
+        if (i < 5 || i >= longitudVectorIn - 5) {
+            vectorOut[i] = vectorIn[i];
+        } else {
+            uint32_t sum = 0;
+            for (uint32_t j = i - 5; j <= i + 5; j++) {
+                sum += vectorIn[j];
+            }
+            vectorOut[i] = sum / 10;
+        }
+    }
+}
 
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
@@ -215,8 +234,9 @@ int main(void)
   //productoEscalar16(Vector,Vector_p2,10,100);
   //asm_productoEscalar16(Vector,Vector_p2,10,100);
   //4
-  productoEscalar12(Vector,Vector_p2,10,100);
+  //productoEscalar12(Vector,Vector_p2,10,100);
   //asm_productoEscalar12(Vector,Vector_p2,10,100);
+  filtroVentana10(Vector,Vector_p2,10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
