@@ -115,8 +115,14 @@ Los sufijos son etiquetas que se agregan al final de las instrucciones para indi
 Por ejemplo se utilizan para diferenciar entre instrucciones de diferentes tamaños de datos o para modificar el comportamiento de una instrucción. Su uso proporciona precisión y flexibilidad en la escritura de instrucciones
 
 2. ¿Para qué se utiliza el sufijo ‘s’? Dé un ejemplo
+
+El sufijo 's' indica si se debe actualizar el registro de estado (APSR). Por ejemplo la instrucción "add" realiza una suma sin actualizar los flags, mientras que "adds" realiza la suma y actualiza los flags según el resultado, obteniendo mas imformacion de la operacion.
+
 3. ¿Qué utilidad tiene la implementación de instrucciones de aritmética saturada? Dé un
 ejemplo con operaciones con datos de 8 bits.
+
+Las instrucciones de aritmética saturada son muy útiles en aplicaciones como el procesamiento de señales permiten evitar desbordamientos al realizar operaciones con datos que exceden el rango de representación de la arquitectura utilizada. Por ejemplo, al sumar dos números de 8 bits, si el resultado excede el límite superior en lugar de producirse un desbordamiento, el valor se satura en el límite máximo permitido. Esto evita discontinuidades en las señales y logra un comportamiento mas predecible en aplicaciones de procesamiento de señales.
+
 4. Describa brevemente la interfaz entre assembler y C ¿Cómo se reciben los argumentos
 de las funciones? ¿Cómo se devuelve el resultado? ¿Qué registros deben guardarse en la
 pila antes de ser modificados?
