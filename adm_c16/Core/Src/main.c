@@ -94,6 +94,22 @@ void productoEscalar16(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitu
         vectorOut[i] = vectorIn[i] * escalar;
     }
 }
+/*EJERCICIO 4
+ *4) Adapte la función del ejercicio 3 para saturar el resultado del producto a 12 bits:
+void productoEscalar12 (uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitud, uint16_t escalar); */
+void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar) {
+	uint32_t producto;
+    for (uint32_t i = 0; i < longitud; i++) {
+        producto = vectorIn[i] * escalar;
+        if (producto > 4095) {
+            vectorOut[i] = 4095;
+        } else {
+            vectorOut[i] = producto;
+        }
+    }
+}
+
+
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
 {
