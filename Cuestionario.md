@@ -95,15 +95,25 @@ portabilidad de los sistemas operativos embebidos?
 El SysTick es un periférico utilizado como base de tiempo para los sistemas operativos embebidos. Su implementación es mas facil entre para procesadores Cortex proporcionando ventajas significativas en términos de portabilidad RTOS. 
 
 19. ¿Qué funciones cumple la unidad de protección de memoria (MPU)?
+
+La unidad de protección de memoria (MPU) cumple una función crítica en la definición de permisos y atributos de memoria en sistemas embebidos. Permite proteger la memoria de tareas en un sistema operativo en tiempo real (RTOS) evitando accesos no autorizados o corrupción de datos. 
+
 20. ¿Cuántas regiones pueden configurarse como máximo? ¿Qué ocurre en caso de haber
 solapamientos de las regiones? ¿Qué ocurre con las zonas de memoria no cubiertas por las
 regiones definidas?
+
+El MPU permite configurar un máximo de 8 regiones. En caso de solapamientos entre regiones los permisos y atributos de la región con el número más alto prevalecerán en la zona solapada, si se intenta acceder a una zona de memoria no definida en el MPU se bloqueará la transferencia y se generará una excepción. Esto garantiza un control preciso sobre los permisos de acceso a la memoria y protege el sistema contra accesos no autorizados.
+
 21. ¿Para qué se suele utilizar la excepción PendSV? ¿Cómo se relaciona su uso con el resto
 de las excepciones? Dé un ejemplo
 22. ¿Para qué se suele utilizar la excepción SVC? Expliquelo dentro de un marco de un
 sistema operativo embebido.
 ## ISA
 1. ¿Qué son los sufijos y para qué se los utiliza? Dé un ejemplo
+
+Los sufijos son etiquetas que se agregan al final de las instrucciones para indicar el tamaño o comportamiento específico.
+Por ejemplo se utilizan para diferenciar entre instrucciones de diferentes tamaños de datos o para modificar el comportamiento de una instrucción. Su uso proporciona precisión y flexibilidad en la escritura de instrucciones
+
 2. ¿Para qué se utiliza el sufijo ‘s’? Dé un ejemplo
 3. ¿Qué utilidad tiene la implementación de instrucciones de aritmética saturada? Dé un
 ejemplo con operaciones con datos de 8 bits.
