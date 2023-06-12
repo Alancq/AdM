@@ -5,6 +5,9 @@
 @ Simbolos exportados
 .global asm_svc
 .global asm_sum
+.global asm_zeros
+.global asm_productoEscalar32
+.global asm_productoEscalar16
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -51,7 +54,7 @@
 @   r1: longitud
 @
 .thumb_func
-zeros:
+asm_zeros:
     mov r2, #0         @ r2 = 0 (valor a asignar)
 
     zeros_loop:
@@ -72,7 +75,7 @@ zeros:
 @   r3: escalar
 @
 .thumb_func
-productoEscalar32:
+asm_productoEscalar32:
     product_loop:
         ldr r4, [r0], #4
         mul r4, r4, r3    @ Realiza la multiplicacion entre el elemento y el escalar
@@ -95,7 +98,7 @@ productoEscalar32:
 @   r3: escalar
 @
 .thumb_func
-productoEscalar16:
+asm_productoEscalar16:
     productEsc16_loop:
         ldrh r4, [r0], #2
         ldrh r5, [r1], #2
