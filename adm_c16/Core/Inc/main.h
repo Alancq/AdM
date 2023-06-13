@@ -66,6 +66,8 @@ void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitu
 void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitudVectorIn);
 //6
 void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud);
+//7
+int32_t max(int32_t *vectorIn, uint32_t longitud);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

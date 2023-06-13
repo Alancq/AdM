@@ -138,6 +138,32 @@ void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud) {
 		vectorOut[i] = (vectorIn[i] >> 16);
 	}
 }
+/*EJERCICIO 7
+ * 7) Realizar una función que reciba un vector de números signados de 32 bits y devuelva la posición
+del máximo del vector.
+
+int32_t max (int32_t * vectorIn, uint32_t longitud);*/
+
+int32_t max(int32_t *vectorIn, uint32_t longitud) {
+    int32_t maxVal = vectorIn[0];
+    uint32_t maxPos = 0;
+
+    for (uint32_t i = 1; i < longitud; i++) {
+        if (vectorIn[i] > maxVal) {
+            maxVal = vectorIn[i];
+            maxPos = i;
+        }
+    }
+
+    return maxPos;
+}
+
+/*EJERCICIO 8
+ * 8) Realizar una función que reciba un vector de muestras signadas de 32 bits y lo decime
+descartando una cada N muestras.
+
+void downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, uint32_t N);*/
+
 
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
@@ -231,7 +257,7 @@ int main(void)
   PrivilegiosSVC ();
 
   const uint32_t Resultado = asm_sum (5, 3);
-  uint32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
+  uint32_t Vector[10]={100,2,3,4,5,6,7,8,9,10};
   uint16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
 
   //zeros(Vector,10);
@@ -246,8 +272,14 @@ int main(void)
   //4
   //productoEscalar12(Vector,Vector_p2,10,100);
   //asm_productoEscalar12(Vector,Vector_p2,10,100);
+  //5
   //filtroVentana10(Vector,Vector_p2,10);
-  pack32to16(Vector,Vector_p2,10);
+  //6
+  //pack32to16(Vector,Vector_p2,10);
+  //7
+  max(Vector,sizeof(Vector))/sizeof(Vector[0]);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
