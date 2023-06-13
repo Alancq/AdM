@@ -165,6 +165,18 @@ descartando una cada N muestras.
 void downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, uint32_t N);*/
 
 
+void downsampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N) {
+    uint32_t s = 0;
+    for (uint32_t i = 0; i < longitud; i++) {
+        if (i % N != 0) {
+            vectorOut[s] = vectorIn[i];
+
+            s++;
+        }
+    }
+}
+
+
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
 {
@@ -257,7 +269,7 @@ int main(void)
   PrivilegiosSVC ();
 
   const uint32_t Resultado = asm_sum (5, 3);
-  uint32_t Vector[10]={100,2,3,4,5,6,7,8,9,10};
+  uint32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
   uint16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
 
   //zeros(Vector,10);
@@ -277,7 +289,11 @@ int main(void)
   //6
   //pack32to16(Vector,Vector_p2,10);
   //7
-  max(Vector,sizeof(Vector))/sizeof(Vector[0]);
+  // uint32_t Vector[10]={100,2,3,4,5,6,7,8,9,10};
+  //max(Vector,sizeof(Vector))/sizeof(Vector[0]);
+  //8
+  downsampleM(Vector,Vector_p2,10,100);
+
 
 
   /* USER CODE END 2 */

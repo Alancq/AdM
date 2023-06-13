@@ -68,6 +68,8 @@ void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitudV
 void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud);
 //7
 int32_t max(int32_t *vectorIn, uint32_t longitud);
+//8
+void downsampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
