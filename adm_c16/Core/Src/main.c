@@ -128,6 +128,16 @@ void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitudV
         }
     }
 }
+/*EJERCICIO 6
+ * 6) Realizar una función que reciba un vector de números signados de 32 bits y los “empaquete” en
+otro vector de 16 bits. La función deberá adecuar los valores de entrada a la nueva precisión.
+
+void pack32to16 (int32_t * vectorIn, int16_t *vectorOut, uint32_t longitud);*/
+void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud) {
+	for (uint32_t i = 0; i < longitud; i++) {
+		vectorOut[i] = (vectorIn[i] >> 16);
+	}
+}
 
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
@@ -222,7 +232,7 @@ int main(void)
 
   const uint32_t Resultado = asm_sum (5, 3);
   uint32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
-  uint32_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
+  uint16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
 
   //zeros(Vector,10);
   //asm_zeros(Vector,10);
@@ -236,7 +246,8 @@ int main(void)
   //4
   //productoEscalar12(Vector,Vector_p2,10,100);
   //asm_productoEscalar12(Vector,Vector_p2,10,100);
-  filtroVentana10(Vector,Vector_p2,10);
+  //filtroVentana10(Vector,Vector_p2,10);
+  pack32to16(Vector,Vector_p2,10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
