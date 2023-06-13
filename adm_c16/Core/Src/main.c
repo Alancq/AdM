@@ -176,6 +176,23 @@ void downsampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint3
     }
 }
 
+/*EJERCICIO 9
+ * 9) Realizar una función que reciba un vector de muestras no signadas de 16 bits e invierta su orden.
+
+void invertir (uint16_t * vector, uint32_t longitud);*/
+void invertir(uint16_t *vector, uint32_t longitud) {
+    uint32_t inicio = 0;
+    uint32_t fin = longitud - 1;
+
+    while (inicio < fin) {
+        uint16_t temp = vector[inicio];
+        vector[inicio] = vector[fin];
+        vector[fin] = temp;
+
+        inicio++;
+        fin--;
+    }
+}
 
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
@@ -269,7 +286,7 @@ int main(void)
   PrivilegiosSVC ();
 
   const uint32_t Resultado = asm_sum (5, 3);
-  uint32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
+  //uint32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
   uint16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
 
   //zeros(Vector,10);
@@ -292,7 +309,12 @@ int main(void)
   // uint32_t Vector[10]={100,2,3,4,5,6,7,8,9,10};
   //max(Vector,sizeof(Vector))/sizeof(Vector[0]);
   //8
-  downsampleM(Vector,Vector_p2,10,100);
+  //downsampleM(Vector,Vector_p2,10,100);
+
+  //9
+  //uint16_t Vector[10]={1,2,3,4,5};
+  uint16_t Vector[10]={1,2,3,4,5};
+  invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
 
 
 
