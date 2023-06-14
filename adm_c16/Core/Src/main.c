@@ -116,16 +116,24 @@ muestras.
 void filtroVentana10(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitudVectorIn);*/
 
 void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitudVectorIn) {
-    for (uint32_t i = 0; i < longitudVectorIn; i++) {
-        if (i < 5 || i >= longitudVectorIn - 5) {
-            vectorOut[i] = vectorIn[i];
-        } else {
-            uint32_t sum = 0;
-            for (uint32_t j = i - 5; j <= i + 5; j++) {
+
+	uint32_t i;
+	int32_t j,aux;
+    for ( i = 0; i < longitudVectorIn; i++) {
+    	uint32_t sum = 0;
+         j= i-5;
+         aux=i;
+
+        // Calcular el promedio de los valores de la ventana
+        while(j<=aux+5) {
+            if (j >= 0 && j < longitudVectorIn) {
                 sum += vectorIn[j];
             }
-            vectorOut[i] = sum / 10;
+            j++;
         }
+
+        // Asignar el promedio al vector de salida
+        vectorOut[i] = sum /11;
     }
 }
 /*EJERCICIO 6
@@ -300,9 +308,9 @@ int main(void)
   //asm_productoEscalar16(Vector,Vector_p2,10,100);
   //4
   //productoEscalar12(Vector,Vector_p2,10,100);
-  asm_productoEscalar12(Vector,Vector_p2,10,100);
+  //asm_productoEscalar12(Vector,Vector_p2,10,100);
   //5
-  //filtroVentana10(Vector,Vector_p2,10);
+  filtroVentana10(Vector,Vector_p2,10);
   //6
   //pack32to16(Vector,Vector_p2,10);
   //7
