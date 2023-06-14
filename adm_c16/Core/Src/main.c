@@ -310,6 +310,8 @@ int main(void)
   //productoEscalar12(Vector,Vector_p2,10,100);
   //asm_productoEscalar12(Vector,Vector_p2,10,100);
   //5
+  //uint32_t Vector[10]={1,1,1,1,1,1,1,1,1,1};
+  //uint16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
   filtroVentana10(Vector,Vector_p2,10);
   //6
   //pack32to16(Vector,Vector_p2,10);

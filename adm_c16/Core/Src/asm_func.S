@@ -9,7 +9,7 @@
 .global asm_productoEscalar32
 .global asm_productoEscalar16
 .global asm_productoEscalar12
-
+.global asm_filtroVentana10
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
 @   void asm_svc (void)
@@ -141,4 +141,61 @@ asm_productoEscalar12:
         bne loop               @ Salta a 'loop' mientras r2 > 0
 
     pop {r4, r5}               @ Recuperar el valor de r4 y r5
+    bx lr
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @ Prototipo en "C":
+@   void asm_filtroVentana10(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitudVectorIn)
+@
+@ Parametros recibidos:
+@   r0: dirección del vector de entrada
+@   r1: dirección del vector de salida
+@   r2: longitud del vector
+@
+.thumb_func
+asm_filtroVentana10:
+    @ Preparación de la función
+    push {r4-r11, lr} @ Guardar los registros que se van a utilizar
+
+    mov r3, #0 @ i = 0
+
+start_outer_loop:
+    cmp r3, r2 @ Compruebe si i < longitudVectorIn
+    bge end_outer_loop
+
+    @ Inicio  ciclo
+    mov r4, r3 @ aux = i
+    sub r5, r3, #5 @ j = i - 5
+    mov r6, #0 @ sum = 0
+
+start_inner_loop:
+    add r7, r4, #5 @ aux + 5
+    cmp r5, r7 @ Compruebe si j <= aux + 5
+    bgt end_inner_loop
+
+    cmp r5, #0 @ Si j >= 0
+    blt increment_j
+
+    cmp r5, r2 @ Si j < longitudVectorIn
+    bge increment_j
+
+    ldrh r7, [r0, r5, lsl #1] @ Cargar vectorIn[j] en r7
+    add r6, r6, r7 @ sum += vectorIn[j]
+
+increment_j:
+    add r5, r5, #1 @ j++
+    b start_inner_loop
+
+end_inner_loop:
+
+    @ Realizar la división sum / 11;
+    mov r8, #11
+    udiv r6, r6, r8
+
+    strh r6, [r1, r3, lsl #1] @ vectorOut[i] = sum / 11;
+    add r3, r3, #1 @ i++
+    b start_outer_loop
+
+end_outer_loop:
+    @ Limpieza y salida de la función
+    pop {r4-r11, lr}
     bx lr
