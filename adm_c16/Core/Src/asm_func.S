@@ -8,7 +8,7 @@
 .global asm_zeros
 .global asm_productoEscalar32
 .global asm_productoEscalar16
-
+.global asm_productoEscalar12
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
@@ -111,4 +111,34 @@ asm_productoEscalar16:
 
         bne productEsc16_loop
 
+    bx lr
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+.syntax unified
+.thumb
+.text
+
+@ Prototipo en "C":
+@   void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar)
+@
+@ Parametros recibidos:
+@   r0: dirección del vector entrada
+@   r1: dirección del vector resultado
+@   r2: longitud
+@   r3: escalar
+@
+@ Valor de retorno: Nada
+@
+.thumb_func
+asm_productoEscalar12:
+    push {r4, r5}
+
+    loop:
+        subs r2, #1            @ r2 = r2 - 1
+        ldrh r4, [r0, r2, LSL #1]  @ Carga un elemento de 16 bits del vectorIn
+        mul r4, r4, r3         @ Realiza el producto entre el elemento y el escalar
+        usat r5, #12, r4       @ Saturación en 12 bits
+        strh r5, [r1, r2, LSL #1]  @ Almacena el resultado en el vectorOut
+        bne loop               @ Salta a 'loop' mientras r2 > 0
+
+    pop {r4, r5}               @ Recuperar el valor de r4 y r5
     bx lr

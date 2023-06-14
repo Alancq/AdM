@@ -286,7 +286,7 @@ int main(void)
   PrivilegiosSVC ();
 
   const uint32_t Resultado = asm_sum (5, 3);
-  //uint32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
+  uint32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
   uint16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
 
   //zeros(Vector,10);
@@ -300,7 +300,7 @@ int main(void)
   //asm_productoEscalar16(Vector,Vector_p2,10,100);
   //4
   //productoEscalar12(Vector,Vector_p2,10,100);
-  //asm_productoEscalar12(Vector,Vector_p2,10,100);
+  asm_productoEscalar12(Vector,Vector_p2,10,100);
   //5
   //filtroVentana10(Vector,Vector_p2,10);
   //6
@@ -313,8 +313,8 @@ int main(void)
 
   //9
   //uint16_t Vector[10]={1,2,3,4,5};
-  uint16_t Vector[10]={1,2,3,4,5};
-  invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
+  //uint16_t Vector[10]={1,2,3,4,5};
+  //invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
 
 
 
