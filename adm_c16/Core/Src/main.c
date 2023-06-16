@@ -199,7 +199,18 @@ void invertir(uint16_t *vector, uint32_t longitud) {
         fin--;
     }
 }
-
+/*EJERCICIO 11
+ * 11) La correlación cruzada (del inglés cross correlation) es una operación usada para estudiar el
+grado de similitud de dos señales y su fase relativa, aún en presencia de ruido.*/
+void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud) {
+    for (uint32_t l = 0; l < longitud; l++) {
+        int32_t sum = 0;
+        for (uint32_t n = 0; n < longitud; n++) {
+            sum += vectorX[n] * vectorY[n - l];
+        }
+        vectorCorr[l] =sum;
+    }
+}
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
 {
@@ -290,7 +301,9 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
   PrivilegiosSVC ();
-
+  // Activa contador de ciclos (iniciar una sola vez)
+  DWT->CTRL |= 1 << DWT_CTRL_CYCCNTENA_Pos;
+  uint32_t Ciclos;
   const uint32_t Resultado = asm_sum (5, 3);
   //int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
   //int32_t Vector_p2[11]={0,0,0,0,0,0,0,0,0,0};
@@ -328,12 +341,20 @@ int main(void)
   //downsampleM(Vector,Vector_p2,11,3);
   //asm_downsampleM(Vector,Vector_p2,11,3);
   //9
-  uint16_t Vector[5]={1,2,3,4,5};
+
+  //uint16_t Vector[5]={1,2,3,4,5};
   //uint16_t Vector[5]={5,2,3,1,5};
   //invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
-  asm_invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
-
-
+  //DWT->CYCCNT = 0;
+  //asm_invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
+  //Ciclos = DWT->CYCCNT;
+//11
+  int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int32_t Vector_p2[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int32_t Vector_corr[11];
+  DWT->CYCCNT = 0;
+  corr(Vector, Vector_p2, Vector_corr, 11);
+  Ciclos = DWT->CYCCNT;
   /* USER CODE END 2 */
 
   /* Infinite loop */
