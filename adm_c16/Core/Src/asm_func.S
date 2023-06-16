@@ -11,6 +11,7 @@
 .global asm_productoEscalar12
 .global asm_filtroVentana10
 .global asm_pack32to16
+.global asm_max
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
 @   void asm_svc (void)
@@ -228,3 +229,43 @@ pack32to16_loop:
 
 pack32to16_exit:
     pop {r4, pc}            @ Recuperar r4 y lr de la pila y volver al lugar de llamada
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   int32_t max(int32_t *vectorIn, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección del vectorIn
+@   r1: longitud
+@
+@ Valor de retorno:
+@   r0: posición del máximo valor en el vectorIn
+@
+.thumb_func
+asm_max:
+    push {r4, lr}               @ Reservar r4 y lr en la pila
+
+    ldr r2, [r0]                @ Cargar el primer valor del vectorIn
+    mov r3, #0                  @ Inicializar el iterador i en 0
+    mov r4, #0                  @ Inicializar maxPos en 0
+
+max_loop:
+    cmp r3, r1                  @ Comparar el iterador con la longitud
+    beq max_exit                @ Si son iguales, salir del bucle
+
+    ldr r5, [r0, r3, LSL #2]    @ Cargar el valor actual del vectorIn
+
+    cmp r5, r2                  @ Comparar el valor actual con maxVal
+    blt max_check               @ Si es menor, saltar a max_check
+
+    mov r2, r5                  @ Actualizar maxVal con el nuevo máximo
+    mov r4, r3                  @ Actualizar maxPos con la nueva posición
+
+max_check:
+    add r3, r3, #1              @ Incrementar el iterador i
+    b max_loop                  @ Volver al inicio del bucle
+
+max_exit:
+    mov r0, r4                  @ Almacenar la posición del máximo en r0
+    pop {r4, pc}                @ Recuperar r4 y lr de la pila y volver al lugar de llamada
+

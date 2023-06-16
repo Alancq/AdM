@@ -153,17 +153,17 @@ del máximo del vector.
 int32_t max (int32_t * vectorIn, uint32_t longitud);*/
 
 int32_t max(int32_t *vectorIn, uint32_t longitud) {
-    int32_t maxVal = vectorIn[0];
-    uint32_t maxPos = 0;
+	int32_t maxVal = vectorIn[0];
+	uint32_t maxPos = 0;
 
-    for (uint32_t i = 1; i < longitud; i++) {
-        if (vectorIn[i] > maxVal) {
-            maxVal = vectorIn[i];
-            maxPos = i;
-        }
-    }
+	for (uint32_t i = 1; i < longitud; i++) {
+		if (vectorIn[i] > maxVal) {
+			maxVal = vectorIn[i];
+			maxPos = i;
+		}
+	}
 
-    return maxPos;
+	return maxPos;
 }
 
 /*EJERCICIO 8
@@ -295,7 +295,7 @@ int main(void)
 
   const uint32_t Resultado = asm_sum (5, 3);
   //int32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
-  //int16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
+  int16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
 
   //zeros(Vector,10);
   //asm_zeros(Vector,10);
@@ -314,13 +314,16 @@ int main(void)
   //uint16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
   //filtroVentana10(Vector,Vector_p2,10);
   //6
-  int32_t Vector[10]={-10,5161,-4545,212,1856,-9898,-1234,65,-942,100};
-  int16_t Vector_p2[10];
+  //int32_t Vector[10]={-10,5161,-4545,212,1856,-9898,-1234,65,-942,100};
+  //int16_t Vector_p2[10];
   //pack32to16(Vector,Vector_p2,10);
-  asm_pack32to16(Vector,Vector_p2,10);
+  //asm_pack32to16(Vector,Vector_p2,10);
   //7
-  // uint32_t Vector[10]={100,2,3,4,5,6,7,8,9,10};
+  int32_t Vector[10]={1,200,3,4000,5,6,7,8,9,10};
   //max(Vector,sizeof(Vector))/sizeof(Vector[0]);
+  uint32_t maxPos = asm_max(Vector,sizeof(Vector)/sizeof(Vector[0]));
+  //uint32_t maxPos = asm_max(Vector,sizeof(Vector)/sizeof(Vector[0]));
+
   //8
   //downsampleM(Vector,Vector_p2,10,100);
 
