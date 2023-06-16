@@ -175,13 +175,11 @@ void downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, ui
 
 void downsampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N) {
     uint32_t s = 0;
-    for (uint32_t i = 0; i < longitud; i++) {
-        if (i % N != 0) {
-            vectorOut[s] = vectorIn[i];
-
-            s++;
-        }
+    for (uint32_t i = N-1; i < longitud; i+=N) {
+        vectorOut[s] = vectorIn[i];
+        s++;
     }
+
 }
 
 /*EJERCICIO 9
@@ -294,8 +292,8 @@ int main(void)
   PrivilegiosSVC ();
 
   const uint32_t Resultado = asm_sum (5, 3);
-  //int32_t Vector[10]={1,2,3,4,5,6,7,8,9,10};
-  int16_t Vector_p2[10]={1,2,3,4,5,6,7,8,9,10};
+  //int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
+  //int32_t Vector_p2[11]={0,0,0,0,0,0,0,0,0,0};
 
   //zeros(Vector,10);
   //asm_zeros(Vector,10);
@@ -319,14 +317,16 @@ int main(void)
   //pack32to16(Vector,Vector_p2,10);
   //asm_pack32to16(Vector,Vector_p2,10);
   //7
-  int32_t Vector[10]={1,200,3,4000,5,6,7,8,9,10};
+  //int32_t Vector[10]={1,200,3,4000,5,6,7,8,9,10};
   //max(Vector,sizeof(Vector))/sizeof(Vector[0]);
-  uint32_t maxPos = asm_max(Vector,sizeof(Vector)/sizeof(Vector[0]));
+  //uint32_t maxPos = max(Vector,sizeof(Vector)/sizeof(Vector[0]));
   //uint32_t maxPos = asm_max(Vector,sizeof(Vector)/sizeof(Vector[0]));
 
   //8
-  //downsampleM(Vector,Vector_p2,10,100);
-
+  int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int32_t Vector_p2[11]={0,0,0,0,0,0,0,0,0,0};
+  //downsampleM(Vector,Vector_p2,11,3);
+  asm_downsampleM(Vector,Vector_p2,11,3);
   //9
   //uint16_t Vector[10]={1,2,3,4,5};
   //uint16_t Vector[10]={1,2,3,4,5};

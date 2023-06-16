@@ -20,3 +20,6 @@ void asm_filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longi
 void asm_pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud);
 //7
 int32_t asm_max(int32_t *vectorIn, uint32_t longitud);
+//8
+void asm_downsampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N);
+

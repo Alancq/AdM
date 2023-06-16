@@ -12,6 +12,8 @@
 .global asm_filtroVentana10
 .global asm_pack32to16
 .global asm_max
+.global asm_downsampleM
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
 @   void asm_svc (void)
@@ -268,4 +270,40 @@ max_check:
 max_exit:
     mov r0, r4                  @ Almacenar la posición del máximo en r0
     pop {r4, pc}                @ Recuperar r4 y lr de la pila y volver al lugar de llamada
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   void downsampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N)
+@
+@ Parametros recibidos:
+@   r0: dirección del vectorIn
+@   r1: dirección del vectorOut
+@   r2: longitud
+@   r3: N
+@
+@ Registros usados:
+@   r4: contador s
+@   r5: iterador i
+@   r6: contador auxiliar para calcular el descarte
+.thumb_func
+asm_downsampleM:
+    push {r4-r7, lr}         @ Guardar los registros que se van a utilizar
 
+    mov r4, r3               @ i = N
+    sub r4, r4, #1           @ i = N - 1
+    mov r5, #0               @ s = 0
+
+downsampleM_loop:
+    cmp r4, r2               @ Compruebe si i < longitud
+    bge end_loop
+
+    ldr r6, [r0, r4, lsl #2] @ vectorIn[i]
+    str r6, [r1, r5, lsl #2] @ vectorOut[s] = vectorIn[i]
+
+    add r5, r5, #1           @ s++
+    add r4, r4, r3           @ i += N
+
+    b downsampleM_loop
+
+end_loop:
+    pop {r4-r7, lr}
+    bx lr
