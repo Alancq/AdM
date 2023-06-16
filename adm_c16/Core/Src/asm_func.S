@@ -10,6 +10,7 @@
 .global asm_productoEscalar16
 .global asm_productoEscalar12
 .global asm_filtroVentana10
+.global asm_pack32to16
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
 @   void asm_svc (void)
@@ -199,3 +200,31 @@ end_outer_loop:
     @ Limpieza y salida de la función
     pop {r4-r11, lr}
     bx lr
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @ Prototipo en "C":
+@   void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección del vectorIn
+@   r1: dirección del vectorOut
+@   r2: longitud
+@
+.thumb_func
+asm_pack32to16:
+    push {r4, lr}           @ Reservar r4 y lr en la pila
+
+    mov r4, #0              @ Inicializar el iterador i en 0
+
+pack32to16_loop:
+    cmp r4, r2              @ Comparar el iterador con la longitud
+    beq pack32to16_exit     @ Si son iguales, salir del bucle
+
+    ldr r3, [r0, r4, LSL #2]  @ Cargar el valor actual del vectorIn (32 bits)
+    asr r3, r3, #16         @ Desplazar hacia la derecha 16 bits para obtener los 16 bits más significativos
+    strh r3, [r1, r4, LSL #1]  @ Almacenar el valor en el vectorOut (16 bits)
+
+    add r4, r4, #1          @ Incrementar el iterador i
+    b pack32to16_loop       @ Volver al inicio del bucle
+
+pack32to16_exit:
+    pop {r4, pc}            @ Recuperar r4 y lr de la pila y volver al lugar de llamada
