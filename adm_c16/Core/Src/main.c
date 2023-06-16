@@ -323,15 +323,15 @@ int main(void)
   //uint32_t maxPos = asm_max(Vector,sizeof(Vector)/sizeof(Vector[0]));
 
   //8
-  int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
-  int32_t Vector_p2[11]={0,0,0,0,0,0,0,0,0,0};
+  //int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
+  //int32_t Vector_p2[11]={0,0,0,0,0,0,0,0,0,0};
   //downsampleM(Vector,Vector_p2,11,3);
-  asm_downsampleM(Vector,Vector_p2,11,3);
+  //asm_downsampleM(Vector,Vector_p2,11,3);
   //9
-  //uint16_t Vector[10]={1,2,3,4,5};
-  //uint16_t Vector[10]={1,2,3,4,5};
+  uint16_t Vector[5]={1,2,3,4,5};
+  //uint16_t Vector[5]={5,2,3,1,5};
   //invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
-
+  asm_invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
 
 
   /* USER CODE END 2 */

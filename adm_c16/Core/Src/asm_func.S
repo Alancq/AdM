@@ -13,6 +13,7 @@
 .global asm_pack32to16
 .global asm_max
 .global asm_downsampleM
+.global asm_invertir
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
@@ -307,3 +308,38 @@ downsampleM_loop:
 end_loop:
     pop {r4-r7, lr}
     bx lr
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   void asm_invertir(uint16_t *vector, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección del vectorIn
+@   r1: longitud
+@
+@ Valor de retorno:
+@   r0: posición del máximo valor en el vectorIn
+@
+.thumb_func
+asm_invertir:
+    push {r2-r4, lr}          @ Reservar r2-r4 y lr en la pila
+
+    sub r2, r1, #1            @ Inicializar el iterador i en longitud - 1
+    mov r3, #0                @ Inicializar el iterador j en 0
+
+invertir_loop:
+    cmp r3, r2                @ Comparar el iterador j con el iterador i
+    bge invertir_exit         @ Si j >= i, salir del bucle
+
+    ldrh r4, [r0, r2, LSL #1]  @ Cargar el valor de vector[i]
+    ldrh r5, [r0, r3, LSL #1]  @ Cargar el valor de vector[j]
+
+    strh r5, [r0, r2, LSL #1]  @ Almacenar el valor de vector[j] en la posición i
+    strh r4, [r0, r3, LSL #1]  @ Almacenar el valor de vector[i] en la posición j
+
+    add r3, r3, #1            @ Incrementar el iterador j
+    sub r2, r2, #1            @ Decrementar el iterador i
+
+    b invertir_loop           @ Volver al inicio del bucle
+
+invertir_exit:
+    pop {r2-r4, pc}
