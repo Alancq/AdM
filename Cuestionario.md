@@ -126,5 +126,10 @@ Las instrucciones de aritmética saturada son muy útiles en aplicaciones como e
 4. Describa brevemente la interfaz entre assembler y C ¿Cómo se reciben los argumentos
 de las funciones? ¿Cómo se devuelve el resultado? ¿Qué registros deben guardarse en la
 pila antes de ser modificados?
-5. ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un
+
+La interfaz entre el lenguaje ensamblador y C establece cómo se pasan los argumentos y se devuelve el resultado de una función. Los argumentos se pasan a través de registros o la pila que comienzan desde r0, y el resultado se devuelve en un registro específicohasta r12. Antes de modificar ciertos registros importantes, es necesario guardar y retornar su contenido en la pila con push y pop
+
+6. ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un
 ejemplo.
+
+Una instrucción SIMD o Single Instruction, Multiple Data permite realizar operaciones en paralelo en múltiples elementos de datos. Se aplican en tareas intensivas en datos como procesamiento de imágenes y señales como audio, ofreciendo ventajas en rendimiento al procesar varios datos a la vez. Por ejemplo, la suma de dos vectores se puede realizar en paralelo.
