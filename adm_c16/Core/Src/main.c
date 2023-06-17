@@ -303,7 +303,7 @@ int main(void)
   PrivilegiosSVC ();
   // Activa contador de ciclos (iniciar una sola vez)
   DWT->CTRL |= 1 << DWT_CTRL_CYCCNTENA_Pos;
-  uint32_t Ciclos;
+  uint32_t Ciclos,Ciclos2;
   const uint32_t Resultado = asm_sum (5, 3);
   //int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
   //int32_t Vector_p2[11]={0,0,0,0,0,0,0,0,0,0};
@@ -349,12 +349,18 @@ int main(void)
   //asm_invertir(Vector,sizeof(Vector)/sizeof(Vector[0]));
   //Ciclos = DWT->CYCCNT;
 //11
-  int32_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
-  int32_t Vector_p2[11]={0,1,2,3,4,5,6,7,8,9,10};
-  int32_t Vector_corr[11];
+  int16_t Vector[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int16_t Vector_p2[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int16_t Vector_corr[11];
   DWT->CYCCNT = 0;
   corr(Vector, Vector_p2, Vector_corr, 11);
   Ciclos = DWT->CYCCNT;
+  int16_t Vector1[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int16_t Vector1_p2[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int16_t Vector1_corr[11];
+  DWT->CYCCNT = 0;
+  asm_corr(Vector1, Vector1_p2, Vector1_corr, 11);
+  Ciclos2 = DWT->CYCCNT;
   /* USER CODE END 2 */
 
   /* Infinite loop */

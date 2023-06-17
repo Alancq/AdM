@@ -14,6 +14,7 @@
 .global asm_max
 .global asm_downsampleM
 .global asm_invertir
+.global asm_corr
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
@@ -343,3 +344,45 @@ invertir_loop:
 
 invertir_exit:
     pop {r2-r4, pc}
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   void asm_corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud);
+@
+@
+.thumb_func
+asm_corr:
+    push {r4-r11, lr}    @ Guarda los registros que se van a utilizar
+
+    mov r9, #0           @ l = 0
+
+corr_loop_l:
+    cmp r9, r3           @ Comprueba si l < longitud
+    bge end_loop_l
+
+    mov r10, #0          @ sum = 0
+    mov r11, #0         @ n = 0####
+
+    corr_loop_n:
+        cmp r11, r3      @ Comprueba si n < longitud
+        bge end_loop_n
+
+        ldrh r5, [r0, r11, lsl #1]   @ Carga vectorX[n] en r5
+        sub r6, r11, r9              @ Calcula (n - l)
+        ldrh r7, [r1, r6, lsl #1]    @ Carga vectorY[n - l] en r7
+        mul r8, r5, r7               @ r8 = vectorX[n] * vectorY[n - l]
+        add r10, r10, r8             @ sum += vectorX[n] * vectorY[n - l]
+
+        add r11, r11, #1             @ n++
+
+        b corr_loop_n
+
+    end_loop_n:
+        str r10, [r2, r9, lsl #2]    @ vectorCorr[l] = sum
+        add r9, r9, #1               @ l++
+
+        b corr_loop_l
+
+end_loop_l:
+    pop {r4-r11, lr}
+    bx lr
+
