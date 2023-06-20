@@ -49,8 +49,11 @@ El Cortex-M tiene dos modos de privilegio: privilegiado y no privilegiado. En el
 
 El modelo de registros ortogonal se refiere a registros independientes en los cuales modificar el valor de uno no afecta al otro, son totalmente independientes y modificando uno de ellos no altera el comportamiento del otro.
 
-9. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un
+8. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un
 ejemplo
+
+Las instrucciones IT son similares a los condicionales "if" en lenguajes como C. Su uso permite ejecutar instrucciones basadas en condiciones específicas alterando el flujo del programa. Estos bloques de instrucciones condicionales nos permiten ejecutar hasta 4 instrucciones de ensamblador de manera condicional lo que proporciona flexibilidad en la manipulación de registros y el flujo del programa.
+
 9. Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).
 
 Las excepciones más prioritarias en un sistema embebido son:
@@ -78,6 +81,9 @@ los periféricos?
 Los core peripherals son los periféricos esenciales que se encuentran integrados en el procesador y que son comunes en todos los procesadores de una arquitectura, como los procesadores Cortex de ARM. Estos periféricos incluyen el Nested Vectored Interrupt Controller (NVIC), el System Control Block (SCB), el System Timer y, en algunos casos, la Memory Protection Unit (MPU). Estos periféricos son proporcionados por la arquitectura y son independientes del fabricante.
 
 13. ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo
+
+Las interrupciones se gestionan mediante el NVIC (Nested Vector Interrupt Controller) y se atienden según sus prioridades. Cada interrupción tiene asignada una prioridad numérica donde 1 es la más alta. El desarrollador decide qué prioridad asignar a cada interrupción habilitada. Los periféricos del procesador suelen generar la mayoría de las interrupciones. 
+
 14. ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?
 
 El CMSIS (Cortex Microcontroller Software Interface Standard) es un conjunto de bibliotecas y herramientas proporcionadas por ARM que permiten acceder y utilizar las funcionalidades estándar de los procesadores Cortex. Su principal ventajaesta en la facilidad de portabilidad del software entre diferentes microcontroladores Cortex, lo que permite reutilizar el código desarrollado en diferentes plataformas.
@@ -87,9 +93,17 @@ microprocesador para atender a la subrutina correspondiente? Explique con un eje
 
 
 16. ¿Cómo cambia la operación de stacking al utilizar la unidad de punto flotante?
+
+Al utilizar la unidad de punto flotante (FPU) el procesador también debe guardar los registros de la FPU. Este "stacking" adicional solo es necesario cuando tanto el programa principal como la interrupción/excepción están utilizando la FPU. De esta manera, se asegura que los registros de punto flotante se preserven correctamente durante el cambio de contexto y se evite la pérdida de datos en los cálculos en  flotante.
+
 17. Explique las características avanzadas de atención a interrupciones: tail chaining y late
 arrival.
-18. ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la
+
+Late arrival se refiere a cuando se produce una interrupción de mayor prioridad mientras se está realizando el "stacking" de otra interrupción. En lugar de descartarla, se continúa con el proceso de "stacking", pero al saltar a la rutina de interrupción, se carga la dirección de la interrupción de mayor prioridad.
+
+Tail chaining ocurre cuando el procesador está ejecutando una interrupción y se produce una interrupción de menor o igual prioridad. En lugar de volver al modo Thread y luego saltar a la nueva interrupción, se continúa ejecutando las instrucciones de la interrupción actual hasta terminar y luego se salta directamente al código de la siguiente interrupción. Esto evita un "context switching" innecesario y mejora el rendimiento del sistema.
+
+19. ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la
 portabilidad de los sistemas operativos embebidos?
 
 El SysTick es un periférico utilizado como base de tiempo para los sistemas operativos embebidos. Su implementación es mas facil entre para procesadores Cortex proporcionando ventajas significativas en términos de portabilidad RTOS. 
