@@ -205,12 +205,37 @@ grado de similitud de dos señales y su fase relativa, aún en presencia de ruid
 void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud) {
     for (uint32_t l = 0; l < longitud; l++) {
         int32_t sum = 0;
-        for (uint32_t n = 0; n < longitud; n++) {
+        for (uint32_t n = l; n < longitud; n++) {
             sum += vectorX[n] * vectorY[n - l];
         }
         vectorCorr[l] =sum;
     }
 }
+/*SIMD*/
+
+
+void corrS(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud) {
+    for (uint32_t l = 0; l < longitud; l++) {
+        int32_t simdSum = 0;
+
+        for (uint32_t n = 0; n < longitud - 1; n += 2) {
+            if (l <= n) {
+                uint32_t j = n - l;
+
+                int32_t simdX = __PKHBT(vectorX[n], vectorX[n + 1], 16);
+                int32_t simdY = __PKHBT(vectorY[j], vectorY[j + 1], 16);
+                simdSum += __SMUAD(simdX, simdY);
+            }
+        }
+
+        if (longitud % 2 != 0) {
+            simdSum += (int32_t)vectorX[longitud - 1] * (int32_t)vectorY[longitud - 1 - l];
+        }
+
+        vectorCorr[l] = (int16_t)(simdSum);
+    }
+}
+
 /* USER CODE BEGIN 0 */
 static void PrivilegiosSVC (void)
 {
@@ -361,6 +386,12 @@ int main(void)
   DWT->CYCCNT = 0;
   asm_corr(Vector1, Vector1_p2, Vector1_corr, 11);
   Ciclos2 = DWT->CYCCNT;
+  int16_t Vector2[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int16_t Vector2_p2[11]={0,1,2,3,4,5,6,7,8,9,10};
+  int16_t Vector2_corr[11];
+  DWT->CYCCNT = 0;
+  corrS(Vector2, Vector2_p2, Vector2_corr, 11);
+  uint32_t Ciclos3 = DWT->CYCCNT;
   /* USER CODE END 2 */
 
   /* Infinite loop */

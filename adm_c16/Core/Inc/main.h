@@ -74,6 +74,9 @@ void downsampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint3
 void invertir(uint16_t *vector, uint32_t longitud);
 //11
 void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud);
+
+void corrS(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud);
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

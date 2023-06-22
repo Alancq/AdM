@@ -360,7 +360,7 @@ corr_loop_l:
     bge end_loop_l
 
     mov r10, #0          @ sum = 0
-    mov r11, #0         @ n = 0####
+    mov r11, #0         @ n = 0
 
     corr_loop_n:
         cmp r11, r3      @ Comprueba si n < longitud
@@ -377,7 +377,7 @@ corr_loop_l:
         b corr_loop_n
 
     end_loop_n:
-        str r10, [r2, r9, lsl #2]    @ vectorCorr[l] = sum
+        str r10, [r2, r9, lsl #1]    @ vectorCorr[l] = sum
         add r9, r9, #1               @ l++
 
         b corr_loop_l
